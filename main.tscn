@@ -1,45 +1,85 @@
-[gd_scene load_steps=7 format=4 uid="uid://8lc1qi2l2hgt"]
+[gd_scene load_steps=9 format=4 uid="uid://8lc1qi2l2hgt"]
 
 [ext_resource type="TileSet" uid="uid://djjavmh4wx35a" path="res://Environment/Tileset.tres" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://7hto2fde6nhy" path="res://Gameplay.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://b7p0qqbgopi63" path="res://Actor/player.tscn" id="2_1bvp3"]
+[ext_resource type="Texture2D" uid="uid://cxvye2oqyagne" path="res://Fantasy Swamp Forest/Free/BG_1/BG_1.png" id="4_272bh"]
 [ext_resource type="Texture2D" uid="uid://um7lbkovujgs" path="res://Fantasy Swamp Forest/Free/BG_3/BG_3.png" id="5_7mycd"]
 [ext_resource type="PackedScene" uid="uid://bw5h2x4gy2wr5" path="res://Actor/enemy/enemy.tscn" id="5_lquwl"]
 [ext_resource type="Texture2D" uid="uid://bcowj8a66mk4a" path="res://Fantasy Swamp Forest/Free/BG_2/BG_2.png" id="6_272bh"]
+[ext_resource type="PackedScene" uid="uid://btcr0oxhatpy2" path="res://Actor/enemy/flying_enem.tscn" id="7_5vw27"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_7mycd")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
-visible = false
 
-[node name="BGJungle" type="ParallaxLayer" parent="ParallaxBackground"]
-position = Vector2(460, 327)
-motion_scale = Vector2(0, 0)
+[node name="farbg1" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, -56)
+scale = Vector2(1, 1.7)
+motion_mirroring = Vector2(4096, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/BGJungle"]
-texture_filter = 1
-position = Vector2(-203, -250)
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/farbg1"]
 texture = ExtResource("5_7mycd")
 
-[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+[node name="farbg2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(2048, -56)
+scale = Vector2(1, 1.7)
+motion_mirroring = Vector2(4096, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/ParallaxLayer"]
-position = Vector2(-779, -142)
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/farbg2"]
+texture = ExtResource("5_7mycd")
+
+[node name="far_tree1" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, -33)
+scale = Vector2(1, 1.7)
+motion_scale = Vector2(0.8, 1)
+motion_mirroring = Vector2(3000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/far_tree1"]
 texture = ExtResource("6_272bh")
-centered = false
+
+[node name="far_tree2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(1500, -33)
+scale = Vector2(1, 1.7)
+motion_scale = Vector2(0.8, 1)
+motion_mirroring = Vector2(3000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/far_tree2"]
+texture = ExtResource("6_272bh")
+
+[node name="near_tree1" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(0, -37)
+scale = Vector2(1, 1.7)
+motion_scale = Vector2(0.5, 1)
+motion_mirroring = Vector2(3000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/near_tree1"]
+texture = ExtResource("4_272bh")
+
+[node name="near_tree2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(1500, -37)
+scale = Vector2(1, 1.7)
+motion_scale = Vector2(0.5, 1)
+motion_mirroring = Vector2(3000, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/near_tree2"]
+texture = ExtResource("4_272bh")
 
 [node name="TileMap" type="TileMapLayer" parent="."]
 position = Vector2(-587, 17)
-tile_map_data = PackedByteArray("AAAFAA8AAAAQAAEAAAAGAA8AAAARAAEAAAAHAA8AAAASAAEAAAAIAA8AAAAQAAEAAAAJAA8AAAARAAEAAAAKAA8AAAASAAEAAAALAA8AAAAQAAEAAAAMAA8AAAARAAEAAAANAA8AAAASAAEAAAAOAA8AAAAQAAEAAAAPAA8AAAARAAEAAAAQAA8AAAASAAEAAAARAA8AAAAQAAEAAAASAA8AAAARAAEAAAATAA8AAAASAAEAAAAUAA8AAAAQAAEAAAAVAA8AAAARAAEAAAAWAA8AAAASAAEAAAAXAA8AAAAQAAEAAAAYAA8AAAARAAEAAAAZAA8AAAASAAEAAAAaAA8AAAAQAAEAAAAbAA8AAAARAAEAAAAcAA8AAAASAAEAAAAdAA8AAAAQAAEAAAAeAA8AAAARAAEAAAAfAA8AAAASAAEAAAAgAA8AAAAQAAEAAAAhAA8AAAARAAEAAAAiAA8AAAASAAEAAAAjAA8AAAAQAAEAAAAkAA8AAAARAAEAAAAlAA8AAAASAAEAAAAmAA8AAAAQAAEAAAAnAA8AAAARAAEAAAAoAA8AAAASAAEAAAApAA8AAAAQAAEAAAAqAA8AAAARAAEAAAArAA8AAAASAAEAAAAsAA8AAAAQAAEAAAAtAA8AAAARAAEAAAAuAA8AAAASAAEAAAAvAA8AAAAQAAEAAAAwAA8AAAARAAEAAAAxAA8AAAASAAEAAAAyAA8AAAAQAAEAAAAzAA8AAAARAAEAAAA0AA8AAAASAAEAAAA1AA8AAAAQAAEAAAA2AA8AAAARAAEAAAA3AA8AAAASAAEAAAA=")
+tile_map_data = PackedByteArray("AAAFAA8AAAAQAAEAAAAGAA8AAAARAAEAAAAHAA8AAAASAAEAAAAIAA8AAAAQAAEAAAAJAA8AAAARAAEAAAAKAA8AAAASAAEAAAALAA8AAAAQAAEAAAAMAA8AAAARAAEAAAANAA8AAAASAAEAAAAOAA8AAAAQAAEAAAAPAA8AAAARAAEAAAAQAA8AAAASAAEAAAARAA8AAAAQAAEAAAASAA8AAAARAAEAAAATAA8AAAASAAEAAAAUAA8AAAAQAAEAAAAVAA8AAAARAAEAAAAWAA8AAAASAAEAAAAXAA8AAAAQAAEAAAAYAA8AAAARAAEAAAAZAA8AAAASAAEAAAAaAA8AAAAQAAEAAAAbAA8AAAARAAEAAAAcAA8AAAASAAEAAAAdAA8AAAAQAAEAAAAeAA8AAAARAAEAAAAfAA8AAAASAAEAAAAgAA8AAAAQAAEAAAAhAA8AAAARAAEAAAAiAA8AAAASAAEAAAAjAA8AAAAQAAEAAAAkAA8AAAARAAEAAAAlAA8AAAASAAEAAAAmAA8AAAAQAAEAAAAnAA8AAAARAAEAAAAoAA8AAAASAAEAAAApAA8AAAAQAAEAAAAqAA8AAAARAAEAAAArAA8AAAASAAEAAAAsAA8AAAAQAAEAAAAtAA8AAAARAAEAAAAuAA8AAAASAAEAAAAvAA8AAAAQAAEAAAAwAA8AAAARAAEAAAAxAA8AAAASAAEAAAAyAA8AAAAQAAEAAAAzAA8AAAARAAEAAAA0AA8AAAASAAEAAAA1AA8AAAAQAAEAAAA2AA8AAAARAAEAAAA3AA8AAAASAAEAAAA4AA8AAAAEAAAAAAA5AA8AAAAEAAAAAAA6AA8AAAAEAAAAAAA7AA8AAAAEAAAAAAA8AA8AAAAEAAAAAAA9AA8AAAAEAAAAAAA+AA8AAAAEAAAAAAA/AA8AAAAEAAAAAABAAA8AAAAEAAAAAABBAA8AAAAEAAAAAABCAA8AAAAEAAAAAABDAA8AAAAEAAAAAABEAA8AAAAEAAAAAABFAA8AAAAEAAAAAABGAA8AAAAEAAAAAABHAA8AAAAEAAAAAABIAA8AAAAEAAAAAABJAA8AAAAEAAAAAABKAA8AAAAEAAAAAABLAA8AAAAEAAAAAABMAA8AAAAEAAAAAAAEAA8AAAAEAAAAAAADAA8AAAAEAAAAAAACAA8AAAAEAAAAAAABAA8AAAAEAAAAAAAAAA8AAAAEAAAAAAD//w8AAAAEAAAAAAD+/w8AAAAEAAAAAAD9/w8AAAAEAAAAAAD8/w8AAAAEAAAAAAD7/w8AAAAEAAAAAAD6/w8AAAAEAAAAAAD5/w8AAAAEAAAAAAD4/w8AAAAEAAAAAAD3/w8AAAAEAAAAAAD2/w8AAAAEAAAAAAD1/w8AAAAEAAAAAAA=")
 tile_set = ExtResource("1_1bvp3")
 
 [node name="Enemy" parent="." instance=ExtResource("5_lquwl")]
 position = Vector2(176, 222)
 scale = Vector2(1, 1)
 
-[node name="Player" parent="." groups=["player"] instance=ExtResource("2_1bvp3")]
-position = Vector2(-449, 225)
+[node name="Flying" parent="." instance=ExtResource("7_5vw27")]
+position = Vector2(1014, -217)
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-61, -47)
+[node name="Player" parent="." groups=["player"] instance=ExtResource("2_1bvp3")]
+position = Vector2(133, -167)
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(340, -72)
