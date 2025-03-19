@@ -1,10 +1,13 @@
-[gd_scene load_steps=4 format=3 uid="uid://bw5h2x4gy2wr5"]
+[gd_scene load_steps=5 format=3 uid="uid://bw5h2x4gy2wr5"]
 
 [ext_resource type="Script" uid="uid://b223okvyfma1c" path="res://Actor/enemy/enemy.gd" id="1_fui6t"]
 [ext_resource type="Texture2D" uid="uid://b30vuertqjv87" path="res://icon.svg" id="1_hwkhx"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hwkhx"]
 size = Vector2(68.3333, 68.3333)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fui6t"]
+radius = 200.0
 
 [node name="Enemy" type="CharacterBody2D"]
 scale = Vector2(0.3, 0.3)
@@ -17,8 +20,24 @@ shape = SubResource("RectangleShape2D_hwkhx")
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_hwkhx")
 
-[node name="ProgressBar" type="ProgressBar" parent="."]
+[node name="HPBar" type="ProgressBar" parent="."]
 offset_left = -43.3333
 offset_top = -63.3333
 offset_right = 43.6667
 offset_bottom = -36.3333
+
+[node name="RayWall" type="RayCast2D" parent="."]
+target_position = Vector2(-50, 0)
+
+[node name="RayEdge" type="RayCast2D" parent="."]
+target_position = Vector2(-43.3333, 43.3333)
+
+[node name="DetectionArea" type="Area2D" parent="."]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(-3.33333, 3.33333)
+shape = SubResource("CircleShape2D_fui6t")
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]

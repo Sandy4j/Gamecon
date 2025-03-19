@@ -15,6 +15,14 @@ run/main_scene="uid://8lc1qi2l2hgt"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
+[display]
+
+window/stretch/mode="canvas_items"
+
+[global_group]
+
+player="grup untuk player"
+
 [input]
 
 left={
@@ -41,3 +49,7 @@ shoot={
 , Object(InputEventJoypadButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"button_index":10,"pressure":0.0,"pressed":true,"script":null)
 ]
 }
+
+[physics]
+
+jolt_physics_3d/simulation/areas_detect_static_bodies=true

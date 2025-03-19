@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlrrc6xkxys3c"
-path="res://.godot/imported/Tilemap ful.png-2e4fc3942ce7cb13dd24e9bfdce5027f.ctex"
+uid="uid://dqws332tq0d58"
+path="res://.godot/imported/free.png-87ac7af69a53ec4dc3452b751bb21255.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Environment/Tilemap ful.png"
-dest_files=["res://.godot/imported/Tilemap ful.png-2e4fc3942ce7cb13dd24e9bfdce5027f.ctex"]
+source_file="res://Environment/free.png"
+dest_files=["res://.godot/imported/free.png-87ac7af69a53ec4dc3452b751bb21255.ctex"]
 
 [params]
 
