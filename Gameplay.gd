@@ -1,9 +1,7 @@
 extends Node2D
 
 
-@onready var camera = $Camera2D
+#@onready var camera = $Camera2D
 
-
-
-func _process(delta: float) -> void:
+func _ready() -> void:
 	pass

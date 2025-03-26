@@ -6,6 +6,7 @@ var damage = 1
 
 func _ready():
 	rotation = direction.angle()
+	$AnimationPlayer.play("play")
 
 func _physics_process(delta):
 	position += direction * speed * delta

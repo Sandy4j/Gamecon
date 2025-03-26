@@ -1,15 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://b7p0qqbgopi63"]
+[gd_scene load_steps=14 format=3 uid="uid://b7p0qqbgopi63"]
 
 [ext_resource type="Script" uid="uid://c6p6u51nu0jus" path="res://Actor/player.gd" id="1_f8kj4"]
 [ext_resource type="PackedScene" uid="uid://c8qfj54f5o28y" path="res://Actor/bullet.tscn" id="2_bwb2b"]
-[ext_resource type="Texture2D" uid="uid://ctvf1udrhll4n" path="res://Actor/Asset/idle mc new.png" id="2_f8kj4"]
+[ext_resource type="Texture2D" uid="uid://uu253k01b3w4" path="res://Actor/spritesheet-character.png" id="3_bwb2b"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_f8kj4"]
 radius = 15.0
 height = 66.0
 
 [sub_resource type="Animation" id="Animation_t488s"]
-length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -17,15 +16,61 @@ tracks/0/path = NodePath("../Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.166667, 0.2, 0.233333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [0]
+"values": [0, 1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_8nabi"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.0333333, 0.0666667, 0.1, 0.133333, 0.2, 0.266667, 0.333333, 0.4, 0.466667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42]
+}
+
+[sub_resource type="Animation" id="Animation_yofk6"]
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [66, 67, 68, 69, 70, 71, 72, 73, 74, 75]
+}
+
+[sub_resource type="Animation" id="Animation_4onl1"]
+length = 0.55
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [56, 57, 58, 59, 60, 61]
 }
 
 [sub_resource type="Animation" id="Animation_bwb2b"]
 resource_name = "idle"
-length = 0.8
+length = 0.7
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -33,24 +78,64 @@ tracks/0/path = NodePath("../Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3, 4, 5, 6]
 }
 
+[sub_resource type="Animation" id="Animation_wu1c2"]
+length = 0.55
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [45, 46, 47, 48, 49, 50]
+}
+
 [sub_resource type="Animation" id="Animation_4yg7d"]
+length = 0.45
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [23, 24, 25, 26, 27]
+}
 
 [sub_resource type="Animation" id="Animation_xns58"]
-
-[sub_resource type="Animation" id="Animation_8nabi"]
-
-[sub_resource type="Animation" id="Animation_wu1c2"]
+length = 0.15
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [12, 13]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4yg7d"]
 _data = {
 &"RESET": SubResource("Animation_t488s"),
 &"blink": SubResource("Animation_8nabi"),
+&"death": SubResource("Animation_yofk6"),
+&"fall": SubResource("Animation_4onl1"),
 &"idle": SubResource("Animation_bwb2b"),
 &"jump": SubResource("Animation_wu1c2"),
 &"run": SubResource("Animation_4yg7d"),
@@ -58,22 +143,22 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody2D"]
+collision_mask = 3
 script = ExtResource("1_f8kj4")
 bullet_scene = ExtResource("2_bwb2b")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-7, 0)
+position = Vector2(-7, -3)
 shape = SubResource("CapsuleShape2D_f8kj4")
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(21, 3)
+position = Vector2(21, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-7, 0)
-texture = ExtResource("2_f8kj4")
-hframes = 8
-
-[node name="Timer" type="Timer" parent="."]
+texture = ExtResource("3_bwb2b")
+hframes = 11
+vframes = 7
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Marker2D")
@@ -81,4 +166,16 @@ libraries = {
 &"": SubResource("AnimationLibrary_4yg7d")
 }
 
+[node name="Timer" type="Timer" parent="."]
+
+[node name="DodgeTimer" type="Timer" parent="."]
+
+[node name="DodgeCD" type="Timer" parent="."]
+
+[node name="Iframe" type="Timer" parent="."]
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="DodgeTimer" to="." method="_on_dodge_timer_timeout"]
+[connection signal="timeout" from="DodgeCD" to="." method="_on_dodge_cd_timeout"]
+[connection signal="timeout" from="Iframe" to="." method="_on_iframe_timeout"]
