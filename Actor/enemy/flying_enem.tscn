@@ -33,4 +33,5 @@ shape = SubResource("CircleShape2D_kglvv")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="aoe"]
 shape = SubResource("CircleShape2D_8cv5b")
 
+[connection signal="body_entered" from="damage" to="." method="_on_damage_body_entered"]
 [connection signal="body_entered" from="aoe" to="." method="_on_detection_area_body_entered"]
