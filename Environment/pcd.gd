@@ -11,7 +11,7 @@ func _ready() -> void:
 	altitude.seed = randi()
 	temporature.seed = randi()
 	moisture.seed = randi()
-	player.get_tree().get_first_node_in_group("player")
+	player = get_parent().get_child(1)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,16 +32,19 @@ func generate(posn):
 		var ly = 0
 		var ly2 = 0
 		for y in range(10):
-			set_cell(0, Vector2i(pos.x -width/2 + x, y), 0, Vector2i(3, 7))
+			set_cell(0, Vector2i(pos.x -width/2 + x, y), 0, Vector2i(2, 2))
 			ly += 1
+			
 		ly2 = ly
 		for y in range(alt):
-			set_cell(0, Vector2i(pos.x-width/2 + x, -(y + ly2)), 0, Vector2i(1, 0))
+			set_cell(0, Vector2i(pos.x-width/2 + x, -(y + ly2)), 0, Vector2i(0, 1))
 			ly += 1
+			
 		ly2 = ly
 		for y in range(5):
-			set_cell(0, Vector2i(pos.x-width/2 + x, -(y + ly2)), 0, Vector2i(1, 0))
+			set_cell(0, Vector2i(pos.x-width/2 + x, -(y + ly2)), 0, Vector2i(0, 0))
 			ly += 1
+			
 		ly2 = ly
-		set_cell(0, Vector2i(pos.x-width/2 + x, -(5 + ly2)), 0, Vector2i(round((moist+5)/4), round((temp+5)/3)))
+		set_cell(0, Vector2i(pos.x-width/2 + x, -(ly2)), 0, Vector2i(round((moist+5)/4), round((temp+5)/3)))
 		ly2 += 1

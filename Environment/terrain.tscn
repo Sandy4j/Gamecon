@@ -4,6 +4,3 @@
 
 [node name="TileMapLayer" type="TileMapLayer"]
 script = ExtResource("1_voybs")
-start = null
-noise_frequency = null
-floating_island_chance = null
