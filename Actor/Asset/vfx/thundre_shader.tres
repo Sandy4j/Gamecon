@@ -1,0 +1,128 @@
+[gd_resource type="VisualShader" load_steps=12 format=3 uid="uid://bbt8lxryv76ec"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_wegmv"]
+linked_parent_graph_frame = 12
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_f6ol0"]
+linked_parent_graph_frame = 12
+operator = 2
+
+[sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_2mwdy"]
+size = Vector2(564, 467)
+title = "color"
+attached_nodes = PackedInt32Array(10, 11)
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_e5cc4"]
+parameter_name = "basic_texture"
+texture_type = 1
+texture_repeat = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_vfj1p"]
+expanded_output_ports = [0]
+source = 5
+
+[sub_resource type="VisualShaderNodeUVFunc" id="VisualShaderNodeUVFunc_no6b7"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_lpmbw"]
+input_name = "time"
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_cih6a"]
+default_input_values = [0, Vector2(0, 0), 1, Vector2(1, 0)]
+op_type = 0
+operator = 2
+
+[sub_resource type="VisualShaderNodeVec2Parameter" id="VisualShaderNodeVec2Parameter_urbrj"]
+parameter_name = "speed"
+
+[sub_resource type="VisualShaderNodeSmoothStep" id="VisualShaderNodeSmoothStep_pod1o"]
+
+[sub_resource type="VisualShaderNodeFloatParameter" id="VisualShaderNodeFloatParameter_v0vtv"]
+parameter_name = "vanishing"
+hint = 1
+
+[resource]
+code = "shader_type canvas_item;
+render_mode blend_add;
+
+uniform float vanishing : hint_range(0.0, 1.0);
+uniform vec2 speed;
+uniform sampler2D basic_texture : source_color, repeat_enable;
+
+
+
+void fragment() {
+// Input:10
+	vec4 n_out10p0 = COLOR;
+
+
+// FloatParameter:9
+	float n_out9p0 = vanishing;
+
+
+// Input:5
+	float n_out5p0 = TIME;
+
+
+// Vector2Parameter:7
+	vec2 n_out7p0 = speed;
+
+
+// VectorOp:6
+	vec2 n_out6p0 = vec2(n_out5p0) * n_out7p0;
+
+
+// UVFunc:4
+	vec2 n_in4p1 = vec2(1.00000, 1.00000);
+	vec2 n_out4p0 = n_out6p0 * n_in4p1 + UV;
+
+
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(basic_texture, n_out4p0);
+	float n_out3p1 = n_out3p0.r;
+
+
+// SmoothStep:8
+	float n_in8p1 = 1.00000;
+	float n_out8p0 = smoothstep(n_out9p0, n_in8p1, n_out3p1);
+
+
+// VectorOp:11
+	vec3 n_out11p0 = vec3(n_out10p0.xyz) * vec3(n_out8p0);
+
+
+// Output:0
+	COLOR.rgb = n_out11p0;
+
+
+}
+"
+graph_offset = Vector2(-423.33, -86.2563)
+mode = 1
+modes/blend = 1
+flags/light_only = false
+nodes/fragment/0/position = Vector2(1120, 100)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_e5cc4")
+nodes/fragment/2/position = Vector2(-400, 340)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_vfj1p")
+nodes/fragment/3/position = Vector2(20, 200)
+nodes/fragment/4/node = SubResource("VisualShaderNodeUVFunc_no6b7")
+nodes/fragment/4/position = Vector2(-340, 60)
+nodes/fragment/5/node = SubResource("VisualShaderNodeInput_lpmbw")
+nodes/fragment/5/position = Vector2(-1000, -80)
+nodes/fragment/6/node = SubResource("VisualShaderNodeVectorOp_cih6a")
+nodes/fragment/6/position = Vector2(-600, 20)
+nodes/fragment/7/node = SubResource("VisualShaderNodeVec2Parameter_urbrj")
+nodes/fragment/7/position = Vector2(-1180, 140)
+nodes/fragment/8/node = SubResource("VisualShaderNodeSmoothStep_pod1o")
+nodes/fragment/8/position = Vector2(520, 80)
+nodes/fragment/9/node = SubResource("VisualShaderNodeFloatParameter_v0vtv")
+nodes/fragment/9/position = Vector2(140, -120)
+nodes/fragment/10/node = SubResource("VisualShaderNodeInput_wegmv")
+nodes/fragment/10/position = Vector2(620, -460)
+nodes/fragment/11/node = SubResource("VisualShaderNodeVectorOp_f6ol0")
+nodes/fragment/11/position = Vector2(940, -260)
+nodes/fragment/12/node = SubResource("VisualShaderNodeFrame_2mwdy")
+nodes/fragment/12/position = Vector2(580, -501)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 4, 0, 3, 0, 5, 0, 6, 0, 6, 0, 4, 2, 7, 0, 6, 1, 3, 1, 8, 2, 9, 0, 8, 0, 10, 0, 11, 0, 11, 0, 0, 0, 8, 0, 11, 1)
