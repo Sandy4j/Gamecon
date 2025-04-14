@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://bpv82a8s7x2po"]
+
+[node name="ParallaxBackground" type="ParallaxBackground"]
+visible = false

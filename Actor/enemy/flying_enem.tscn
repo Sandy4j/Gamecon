@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://btcr0oxhatpy2"]
+
+[ext_resource type="Script" uid="uid://su42t0bt11i3" path="res://Actor/enemy/flying_enemy.gd" id="1_ksrbi"]
+[ext_resource type="Texture2D" uid="uid://b30vuertqjv87" path="res://icon.svg" id="1_pqn1k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ksrbi"]
+size = Vector2(128, 129)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kglvv"]
+radius = 192.938
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8cv5b"]
+radius = 511.048
+
+[node name="Flying" type="CharacterBody2D"]
+script = ExtResource("1_ksrbi")
+speed = 80.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_ksrbi")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_pqn1k")
+
+[node name="damage" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="damage"]
+shape = SubResource("CircleShape2D_kglvv")
+
+[node name="aoe" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="aoe"]
+shape = SubResource("CircleShape2D_8cv5b")
+
+[connection signal="body_entered" from="damage" to="." method="_on_damage_body_entered"]
+[connection signal="body_entered" from="aoe" to="." method="_on_detection_area_body_entered"]
