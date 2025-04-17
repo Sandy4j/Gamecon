@@ -1,16 +1,102 @@
-[gd_scene load_steps=5 format=3 uid="uid://bw5h2x4gy2wr5"]
+[gd_scene load_steps=10 format=3 uid="uid://bw5h2x4gy2wr5"]
 
 [ext_resource type="Script" uid="uid://b223okvyfma1c" path="res://Actor/enemy/enemy.gd" id="1_fui6t"]
-[ext_resource type="Texture2D" uid="uid://b30vuertqjv87" path="res://icon.svg" id="1_hwkhx"]
+[ext_resource type="Texture2D" uid="uid://dmlu0urr8db7t" path="res://Actor/enemy/enemymeleesprite.png" id="2_fui6t"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hwkhx"]
 size = Vector2(68.3333, 68.3333)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_fui6t"]
-radius = 200.0
+[sub_resource type="Animation" id="Animation_3xhg4"]
+resource_name = "idle"
+length = 0.35
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_bh1fo"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_nvw6w"]
+resource_name = "run"
+length = 0.55
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [7, 8, 9, 10, 11, 12]
+}
+
+[sub_resource type="Animation" id="Animation_vt6qr"]
+resource_name = "attack"
+length = 0.45
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [14, 15, 16, 17, 18]
+}
+
+[sub_resource type="Animation" id="Animation_6qahu"]
+resource_name = "death"
+length = 0.7
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [21, 22, 23, 24, 25, 26, 27]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wje0v"]
+_data = {
+&"RESET": SubResource("Animation_bh1fo"),
+&"attack": SubResource("Animation_vt6qr"),
+&"death": SubResource("Animation_6qahu"),
+&"idle": SubResource("Animation_3xhg4"),
+&"run": SubResource("Animation_nvw6w")
+}
 
 [node name="Enemy" type="CharacterBody2D"]
-scale = Vector2(0.3, 0.3)
 collision_layer = 2
 collision_mask = 3
 script = ExtResource("1_fui6t")
@@ -19,8 +105,10 @@ script = ExtResource("1_fui6t")
 shape = SubResource("RectangleShape2D_hwkhx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_hwkhx")
+texture = ExtResource("2_fui6t")
+flip_h = true
+hframes = 7
+vframes = 4
 
 [node name="HPBar" type="ProgressBar" parent="."]
 offset_left = -43.3333
@@ -28,18 +116,17 @@ offset_top = -63.3333
 offset_right = 43.6667
 offset_bottom = -36.3333
 
-[node name="RayWall" type="RayCast2D" parent="."]
+[node name="RayAttack" type="RayCast2D" parent="."]
+visible = false
 target_position = Vector2(-50, 0)
 
 [node name="RayEdge" type="RayCast2D" parent="."]
-target_position = Vector2(-43.3333, 43.3333)
-
-[node name="DetectionArea" type="Area2D" parent="."]
 visible = false
+target_position = Vector2(-63, 63)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
-position = Vector2(-3.33333, 3.33333)
-shape = SubResource("CircleShape2D_fui6t")
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_wje0v")
+}
 
-[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
-[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

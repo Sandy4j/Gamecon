@@ -4,13 +4,126 @@
 [ext_resource type="Script" uid="uid://7hto2fde6nhy" path="res://Gameplay.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://b7p0qqbgopi63" path="res://Actor/player.tscn" id="2_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://cik1286n6a2km" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 5.png" id="2_5vw27"]
+[ext_resource type="Script" uid="uid://pg14fatwo7iu" path="res://stopwatch.gd" id="2_kek77"]
 [ext_resource type="Texture2D" uid="uid://b50msifkit7n" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 2.png" id="3_kek77"]
 [ext_resource type="Texture2D" uid="uid://ctkgcd8j5vn73" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 1.png" id="4_4c57u"]
-[ext_resource type="PackedScene" uid="uid://bw5h2x4gy2wr5" path="res://Actor/enemy/enemy.tscn" id="5_lquwl"]
-[ext_resource type="Script" uid="uid://brhr15k4hwt78" path="res://Environment/pcd.gd" id="8_5vw27"]
+[ext_resource type="Script" uid="uid://brhr15k4hwt78" path="res://Environment/tilemap.gd" id="8_5vw27"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_7mycd")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_kek77")
+
+[node name="Timer" type="Timer" parent="UI/Control"]
+
+[node name="Label" type="Label" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -50.0
+offset_right = 50.0
+offset_bottom = 35.0
+grow_horizontal = 2
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_right = 80.0
+offset_bottom = 18.5
+grow_vertical = 2
+theme_override_font_sizes/font_size = 15
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="GameOverPanel" type="Panel" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="UI/Control/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -135.0
+offset_top = -238.0
+offset_right = 136.0
+offset_bottom = -169.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Score" type="Label" parent="UI/Control/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -59.5
+offset_top = -138.5
+offset_right = 60.5
+offset_bottom = -88.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "score"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Menu" type="Button" parent="UI/Control/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -160.0
+offset_top = -25.0
+offset_right = -19.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "Back to Menu"
+
+[node name="Restart" type="Button" parent="UI/Control/GameOverPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 40.0
+offset_top = -25.0
+offset_right = 181.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+text = "Restart"
 
 [node name="ParallaxBG" type="ParallaxBackground" parent="."]
 
@@ -46,19 +159,23 @@ scale = Vector2(4, 4)
 texture = ExtResource("4_4c57u")
 centered = false
 
-[node name="Player" parent="." groups=["player"] instance=ExtResource("2_1bvp3")]
+[node name="Player" parent="." instance=ExtResource("2_1bvp3")]
+position = Vector2(0, 457)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 scale = Vector2(0.5, 0.5)
-zoom = Vector2(1.5, 1.5)
 
-[node name="Enemy" parent="." instance=ExtResource("5_lquwl")]
-position = Vector2(554, 653)
-scale = Vector2(1, 1)
+[node name="ProgressBar" type="ProgressBar" parent="Player"]
+offset_left = -43.0
+offset_top = -63.0
+offset_right = 36.0
+offset_bottom = -36.0
 
 [node name="TileMap" type="TileMap" parent="."]
-position = Vector2(0, 800)
-scale = Vector2(2, 2)
 tile_set = ExtResource("1_1bvp3")
 format = 2
 script = ExtResource("8_5vw27")
+
+[connection signal="timeout" from="UI/Control/Timer" to="UI/Control" method="_on_timer_timeout"]
+[connection signal="pressed" from="UI/Control/GameOverPanel/Menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="UI/Control/GameOverPanel/Restart" to="." method="_on_restart_pressed"]

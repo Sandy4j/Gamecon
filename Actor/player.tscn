@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b7p0qqbgopi63"]
+[gd_scene load_steps=15 format=3 uid="uid://b7p0qqbgopi63"]
 
 [ext_resource type="Script" uid="uid://c6p6u51nu0jus" path="res://Actor/player.gd" id="1_f8kj4"]
 [ext_resource type="PackedScene" uid="uid://c8qfj54f5o28y" path="res://Actor/bullet.tscn" id="2_bwb2b"]
@@ -35,6 +35,22 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [33, 34, 35, 36, 37, 38, 39, 40, 41, 42]
+}
+
+[sub_resource type="Animation" id="Animation_vtw7b"]
+resource_name = "charged"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [77, 78, 79, 80, 81, 82, 83, 84, 85]
 }
 
 [sub_resource type="Animation" id="Animation_yofk6"]
@@ -134,6 +150,7 @@ tracks/0/keys = {
 _data = {
 &"RESET": SubResource("Animation_t488s"),
 &"blink": SubResource("Animation_8nabi"),
+&"charged": SubResource("Animation_vtw7b"),
 &"death": SubResource("Animation_yofk6"),
 &"fall": SubResource("Animation_4onl1"),
 &"idle": SubResource("Animation_bwb2b"),
@@ -142,10 +159,23 @@ _data = {
 &"shoot": SubResource("Animation_xns58")
 }
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 3
 script = ExtResource("1_f8kj4")
+speed = null
+jump_force = null
+gravity = null
+max_health = null
 bullet_scene = ExtResource("2_bwb2b")
+dodge_speed = null
+dodge_duration = null
+dodge_cooldown = null
+invincibility_frames = null
+bullet_spawn_right_position = null
+bullet_spawn_left_position = null
+damage = null
+charged_bullet_damage = null
+charged_bullet_speed_multiplier = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-7, -3)
@@ -158,7 +188,7 @@ position = Vector2(21, 0)
 position = Vector2(-7, 0)
 texture = ExtResource("3_bwb2b")
 hframes = 11
-vframes = 7
+vframes = 9
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 root_node = NodePath("../Marker2D")

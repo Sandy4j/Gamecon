@@ -26,6 +26,7 @@ enabled=PackedStringArray("res://addons/gaea/plugin.cfg")
 [global_group]
 
 player="grup untuk player"
+navmesh=""
 
 [input]
 

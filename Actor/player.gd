@@ -1,24 +1,23 @@
 extends CharacterBody2D
+class_name Player
 
-signal state_changed(old_state, new_state)
 signal health_changed(new_health)
+signal player_died
 
 @export_group("Player")
 @export var speed = 300.0
 @export var jump_force = 450.0
 @export var gravity = 980.0
-@export var max_health = 100
+@export var max_health = 5
 var bullet_speed = 500.0
 var fire_rate = 0.5
 @export var bullet_scene: PackedScene
-
 
 @export_group("Dodge")
 @export var dodge_speed = 600.0
 @export var dodge_duration = 0.3
 @export var dodge_cooldown = 0.1
 @export var invincibility_frames = 0.5
-
 
 @onready var sprite = $Sprite2D
 @onready var animation_player = $AnimationPlayer
@@ -31,6 +30,12 @@ var fire_rate = 0.5
 
 @export var bullet_spawn_right_position: Vector2
 @export var bullet_spawn_left_position: Vector2
+var is_charging = false
+var charge_time = 0.0
+const CHARGE_THRESHOLD = 2.0
+@export var damage = 1
+@export var charged_bullet_damage = 2
+@export var charged_bullet_speed_multiplier = 1.5
 
 var health = max_health
 var can_fire = true
@@ -39,10 +44,10 @@ var can_dodge = true
 var is_invincible = false
 var original_collision_layer
 var original_collision_mask
-
-enum State {IDLE, RUN, JUMP, FALL, DODGE, SHOOT, HURT, DEAD}
-var current_state = State.IDLE
-var previous_state = State.IDLE
+var is_dodging = false
+var is_shooting = false
+var is_hurt = false
+var is_dead = false
 
 func _ready():
 	fire_timer.wait_time = fire_rate
@@ -55,172 +60,88 @@ func _ready():
 	original_collision_layer = collision_layer
 	original_collision_mask = collision_mask
 	
-	change_state(State.IDLE)
+	update_animation()
 
 func _physics_process(delta):
-	match current_state:
-		State.IDLE:
-			process_idle_state(delta)
-		State.RUN:
-			process_run_state(delta)
-		State.JUMP:
-			process_jump_state(delta)
-		State.FALL:
-			process_fall_state(delta)
-		State.DODGE:
-			process_dodge_state(delta)
-		State.SHOOT:
-			process_shoot_state(delta)
-		State.HURT:
-			process_hurt_state(delta)
-		State.DEAD:
-			pass
-	
+	if is_dead:
+		return
+		
 	if Input.is_action_just_pressed("suicide"):
 		die()
-	
-	if current_state != State.DODGE and !is_on_floor():
-		velocity.y += gravity * delta
-		
-		if velocity.y > 0 and current_state != State.FALL:
-			change_state(State.FALL)
-	
-	move_and_slide()
-
-func process_idle_state(delta):
-	var direction = Input.get_axis("left", "right")
-	if direction != 0:
-		handle_facing_direction(direction)
-		velocity.x = direction * speed
-		change_state(State.RUN)
-	else:
-		velocity.x = 0
-	
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		change_state(State.JUMP)
-	
-	if Input.is_action_just_pressed("dodge") and can_dodge:
-		change_state(State.DODGE)
-	
-	if Input.is_action_pressed("shoot") and can_fire:
-		change_state(State.SHOOT)
-
-func process_run_state(delta):
-	var direction = Input.get_axis("left", "right")
-	
-	if direction == 0:
-		change_state(State.IDLE)
 		return
 	
-	handle_facing_direction(direction)
-
-	velocity.x = direction * speed
+	if !is_on_floor() and !is_dodging:
+		velocity.y += gravity * delta
 	
+	if !is_dodging and !is_dead:
+		process_movement()
+	elif is_dodging:
+		velocity.x = dodge_speed * (1 if facing_right else -1)
+	
+	if is_charging:
+		charge_time += delta
+		#if charge_time >= CHARGE_THRESHOLD:
+			#animation_player.play("charge_ready")
+	
+	process_actions()
+	move_and_slide()
+	update_animation()
+
+func process_movement():
+	var direction = Input.get_axis("left", "right")
+	
+	if direction != 0:
+		handle_facing_direction(direction)
+		velocity.x = direction * speed
+	else:
+		velocity.x = 0
+
+func process_actions():
+	if is_dodging or is_dead or is_hurt:
+		return
 	if Input.is_action_just_pressed("jump") and is_on_floor():
-		change_state(State.JUMP)
-
+		velocity.y = -jump_force
 	if Input.is_action_just_pressed("dodge") and can_dodge:
-		change_state(State.DODGE)
+		start_dodge()
+	if Input.is_action_pressed("shoot") and can_fire and !is_shooting:
+		perform_shoot()
 
-	if Input.is_action_pressed("shoot") and can_fire:
-		change_state(State.SHOOT)
-
-func process_jump_state(delta):
-	var direction = Input.get_axis("left", "right")
-	if direction != 0:
-		handle_facing_direction(direction)
-		velocity.x = direction * speed
-	else:
-		velocity.x = 0
+func update_animation():
+	if is_dead:
+		animation_player.play("death")
+		return	
+	if is_hurt:
+		return
+	if is_shooting:
+		animation_player.play("shoot")
+		return	
+	if is_dodging:
+		return
 	
-	if velocity.y > 0:
-		change_state(State.FALL)
-
-	if Input.is_action_just_pressed("dodge") and can_dodge:
-		change_state(State.DODGE)
-
-	if Input.is_action_pressed("shoot") and can_fire:
-		change_state(State.SHOOT)
-		
-func process_fall_state(delta):
-	var direction = Input.get_axis("left", "right")
-	if direction != 0:
-		handle_facing_direction(direction)
-		velocity.x = direction * speed
-	else:
-		velocity.x = 0
-		
-	if is_on_floor():
-		if velocity.x != 0:
-			change_state(State.RUN)
-		else:
-			change_state(State.IDLE)
-	else:
-		if velocity.y > 0:
-			animation_player.play("fall")
-	
-	if Input.is_action_just_pressed("dodge") and can_dodge:
-		change_state(State.DODGE)
-		
-	if Input.is_action_pressed("shoot") and can_fire:
-		change_state(State.SHOOT)
-
-func process_dodge_state(delta):
-	velocity.x = dodge_speed * (1 if facing_right else -1)
-
-func process_shoot_state(delta):
-	var direction = Input.get_axis("left", "right")
-	if direction != 0:
-		handle_facing_direction(direction)
-		velocity.x = direction * speed
-	else:
-		velocity.x = 0
-
-func process_hurt_state(delta):
-	velocity.x *= 0.8
-
-func change_state(new_state):
-	previous_state = current_state
-	current_state = new_state
-	
-	match previous_state:
-		State.DODGE:
-			end_dodge()
-		State.SHOOT:
-			pass
-		State.HURT:
-			sprite.modulate = Color(1, 1, 1)
-
-	match new_state:
-		State.IDLE:
-			animation_player.play("idle")
-		State.RUN:
-			animation_player.play("run")
-		State.JUMP:
+	if !is_on_floor():
+		if velocity.y < 0:
 			animation_player.play("jump")
-			velocity.y = -jump_force
-		State.FALL:
-			if previous_state != State.JUMP:
-				animation_player.play("fall")
-		State.DODGE:
-			start_dodge()
-		State.SHOOT:
-			perform_shoot()
-		State.HURT:
-			sprite.modulate = Color(1, 0, 0)
-			await get_tree().create_timer(0.1).timeout
-			
-			if is_on_floor():
-				if velocity.x != 0:
-					change_state(State.RUN)
-				else:
-					change_state(State.IDLE)
-			else:
-				change_state(State.FALL)
-		State.DEAD:
-			die()
+		else:
+			animation_player.play("fall")
+	else:
+		if velocity.x != 0:
+			animation_player.play("run")
+		else:
+			animation_player.play("idle")
 
-	emit_signal("state_changed", previous_state, current_state)
+func start_charging():
+	if can_fire and not is_shooting and not is_charging:
+		is_charging = true
+		charge_time = 0.0
+		animation_player.play("charge")
+
+func _input(event):
+	if event.is_action_released("shoot") and is_charging:
+		var is_charged = charge_time >= CHARGE_THRESHOLD
+		perform_shoot(is_charged)
+		is_charging = false
+		$VFXAnimationPlayer.stop() # Hentikan VFX charging
+		charge_time = 0.0
 
 func handle_facing_direction(direction):
 	if direction > 0 and not facing_right:
@@ -233,6 +154,7 @@ func handle_facing_direction(direction):
 		bullet_spawn.position = bullet_spawn_left_position
 
 func start_dodge():
+	is_dodging = true
 	can_dodge = false
 	is_invincible = true
 
@@ -249,6 +171,8 @@ func start_dodge():
 	invincibility_timer.start()
 
 func end_dodge():
+	is_dodging = false
+	
 	if not is_invincible:
 		collision_layer = original_collision_layer
 		collision_mask = original_collision_mask
@@ -256,66 +180,63 @@ func end_dodge():
 	dodge_cooldown_timer.wait_time = dodge_cooldown
 	dodge_cooldown_timer.start()
 
-func perform_shoot():
+func perform_shoot(is_charged = false):
 	if not can_fire:
 		return
 		
-	animation_player.play("shoot")
+	is_shooting = true
+	var anim_name = "shoot"
+	animation_player.play(anim_name)
+	
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = bullet_spawn.global_position
 	
 	var direction = 1 if facing_right else -1
 	bullet.direction = Vector2(direction, 0)
-	bullet.speed = bullet_speed
+	bullet.speed = bullet_speed * (charged_bullet_speed_multiplier if is_charged else 1.0)
+	bullet.damage = charged_bullet_damage if is_charged else damage
+	bullet.is_charged = is_charged
 	
 	await animation_player.animation_finished
 	get_parent().add_child(bullet)
 	can_fire = false
 	fire_timer.start()
-	
-	if is_on_floor():
-		if velocity.x != 0:
-			change_state(State.RUN)
-		else:
-			change_state(State.IDLE)
-	else:
-		change_state(State.FALL)
+	is_shooting = false
 
 func take_damage(amount):
-	if is_invincible or current_state == State.DEAD:
+	if is_invincible or is_dead:
 		return
 		
 	health -= amount
 	emit_signal("health_changed", health)
 	
 	if health <= 0:
-		change_state(State.DEAD)
+		die()
 	else:
-		change_state(State.HURT)
+		is_hurt = true
+		sprite.modulate = Color(1, 0, 0)
+		await get_tree().create_timer(0.1).timeout
+		sprite.modulate = Color(1, 1, 1)
+		is_hurt = false
 
 func die():
+	is_dead = true
 	animation_player.play("death")
-	set_physics_process(false)
 	await animation_player.animation_finished
-	queue_free()
+	emit_signal("player_died")
+	set_process(false)
 
 func _on_timer_timeout() -> void:
 	can_fire = true
 
 func _on_dodge_timer_timeout():
-	if is_on_floor():
-		if velocity.x != 0:
-			change_state(State.RUN)
-		else:
-			change_state(State.IDLE)
-	else:
-		change_state(State.FALL)
+	end_dodge()
 
 func _on_dodge_cd_timeout():
 	can_dodge = true
 
 func _on_iframe_timeout():
 	is_invincible = false
-	if current_state != State.DODGE:
+	if !is_dodging:
 		collision_layer = original_collision_layer
 		collision_mask = original_collision_mask
