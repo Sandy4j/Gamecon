@@ -162,20 +162,7 @@ _data = {
 [node name="Player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 3
 script = ExtResource("1_f8kj4")
-speed = null
-jump_force = null
-gravity = null
-max_health = null
 bullet_scene = ExtResource("2_bwb2b")
-dodge_speed = null
-dodge_duration = null
-dodge_cooldown = null
-invincibility_frames = null
-bullet_spawn_right_position = null
-bullet_spawn_left_position = null
-damage = null
-charged_bullet_damage = null
-charged_bullet_speed_multiplier = null
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-7, -3)

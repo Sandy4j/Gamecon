@@ -30,12 +30,6 @@ var fire_rate = 0.5
 
 @export var bullet_spawn_right_position: Vector2
 @export var bullet_spawn_left_position: Vector2
-var is_charging = false
-var charge_time = 0.0
-const CHARGE_THRESHOLD = 2.0
-@export var damage = 1
-@export var charged_bullet_damage = 2
-@export var charged_bullet_speed_multiplier = 1.5
 
 var health = max_health
 var can_fire = true
@@ -77,11 +71,6 @@ func _physics_process(delta):
 		process_movement()
 	elif is_dodging:
 		velocity.x = dodge_speed * (1 if facing_right else -1)
-	
-	if is_charging:
-		charge_time += delta
-		#if charge_time >= CHARGE_THRESHOLD:
-			#animation_player.play("charge_ready")
 	
 	process_actions()
 	move_and_slide()
@@ -129,20 +118,6 @@ func update_animation():
 		else:
 			animation_player.play("idle")
 
-func start_charging():
-	if can_fire and not is_shooting and not is_charging:
-		is_charging = true
-		charge_time = 0.0
-		animation_player.play("charge")
-
-func _input(event):
-	if event.is_action_released("shoot") and is_charging:
-		var is_charged = charge_time >= CHARGE_THRESHOLD
-		perform_shoot(is_charged)
-		is_charging = false
-		$VFXAnimationPlayer.stop() # Hentikan VFX charging
-		charge_time = 0.0
-
 func handle_facing_direction(direction):
 	if direction > 0 and not facing_right:
 		facing_right = true
@@ -180,22 +155,18 @@ func end_dodge():
 	dodge_cooldown_timer.wait_time = dodge_cooldown
 	dodge_cooldown_timer.start()
 
-func perform_shoot(is_charged = false):
+func perform_shoot():
 	if not can_fire:
 		return
 		
 	is_shooting = true
-	var anim_name = "shoot"
-	animation_player.play(anim_name)
-	
+	animation_player.play("shoot")
 	var bullet = bullet_scene.instantiate()
 	bullet.global_position = bullet_spawn.global_position
 	
 	var direction = 1 if facing_right else -1
 	bullet.direction = Vector2(direction, 0)
-	bullet.speed = bullet_speed * (charged_bullet_speed_multiplier if is_charged else 1.0)
-	bullet.damage = charged_bullet_damage if is_charged else damage
-	bullet.is_charged = is_charged
+	bullet.speed = bullet_speed
 	
 	await animation_player.animation_finished
 	get_parent().add_child(bullet)

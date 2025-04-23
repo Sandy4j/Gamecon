@@ -118,5 +118,15 @@ format = 2
 script = ExtResource("9_7j8hm")
 
 [node name="Player" parent="." instance=ExtResource("11_u37gx")]
+speed = 300.0
+jump_force = 450.0
+gravity = 980.0
+max_health = 5
+dodge_speed = 600.0
+dodge_duration = 0.3
+dodge_cooldown = 0.1
+invincibility_frames = 0.5
+bullet_spawn_right_position = Vector2(0, 0)
+bullet_spawn_left_position = Vector2(0, 0)
 
 [node name="Camera2D" type="Camera2D" parent="Player"]

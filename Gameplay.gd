@@ -1,6 +1,5 @@
 extends Node2D
 
-
 @onready var health_bar = $Player/ProgressBar
 @onready var tilemap = $TileMap
 @onready var stopwatch = $UI/Control
