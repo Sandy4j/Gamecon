@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://77xiged1hwsx"]
+[gd_scene load_steps=3 format=3 uid="uid://77xiged1hwsx"]
 
 [ext_resource type="Script" uid="uid://cv6w2x6hlfk5x" path="res://menu.gd" id="1_lti8b"]
+[ext_resource type="Texture2D" uid="uid://5tvakvmn3mtn" path="res://Environment/title.png" id="2_ouk20"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -35,5 +36,17 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Play
 "
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -750.0
+offset_right = 750.0
+offset_bottom = 500.0
+grow_horizontal = 2
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_ouk20")
 
 [connection signal="pressed" from="ColorRect/Button" to="." method="_on_button_pressed"]
