@@ -1,7 +1,48 @@
-[gd_scene load_steps=3 format=3 uid="uid://77xiged1hwsx"]
+[gd_scene load_steps=12 format=3 uid="uid://77xiged1hwsx"]
 
 [ext_resource type="Script" uid="uid://cv6w2x6hlfk5x" path="res://menu.gd" id="1_lti8b"]
+[ext_resource type="Texture2D" uid="uid://cik1286n6a2km" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 5.png" id="2_ecwwl"]
 [ext_resource type="Texture2D" uid="uid://5tvakvmn3mtn" path="res://Environment/title.png" id="2_ouk20"]
+[ext_resource type="Texture2D" uid="uid://b5vihvrrx1gd0" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 4.png" id="3_kk3ma"]
+[ext_resource type="Texture2D" uid="uid://b50msifkit7n" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 2.png" id="3_mae5d"]
+[ext_resource type="Texture2D" uid="uid://gqduq12gso0f" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 3.png" id="4_nrnbx"]
+[ext_resource type="Texture2D" uid="uid://ctkgcd8j5vn73" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 1.png" id="6_iqepy"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1wq0"]
+bg_color = Color(0.267235, 0.554323, 0.853927, 1)
+border_width_bottom = 8
+border_color = Color(0.191308, 0.468276, 0.752943, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecwwl"]
+bg_color = Color(0.0941661, 0.2912, 0.487463, 1)
+border_color = Color(0.0924879, 0.287422, 0.481823, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwrpx"]
+bg_color = Color(0.184314, 0.458824, 0.737255, 1)
+border_width_bottom = 10
+border_color = Color(0.0518343, 0.195313, 0.337913, 1)
+border_blend = true
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="Theme" id="Theme_g7jxm"]
+Button/styles/focus = SubResource("StyleBoxFlat_h1wq0")
+Button/styles/hover = SubResource("StyleBoxFlat_h1wq0")
+Button/styles/hover_pressed = SubResource("StyleBoxFlat_ecwwl")
+Button/styles/normal = SubResource("StyleBoxFlat_dwrpx")
+Button/styles/pressed = SubResource("StyleBoxFlat_ecwwl")
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -12,32 +53,87 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lti8b")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.252028, 0.252028, 0.252028, 1)
-
-[node name="Button" type="Button" parent="ColorRect"]
+[node name="Sprite2D" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -50.0
-offset_top = -15.0
-offset_right = 50.0
-offset_bottom = 15.0
+offset_left = -890.0
+offset_top = -403.0
+offset_right = 134.0
+offset_bottom = -57.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Play
-"
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("2_ecwwl")
 
-[node name="TextureRect" type="TextureRect" parent="ColorRect"]
+[node name="Sprite2D2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -890.0
+offset_top = -396.0
+offset_right = 134.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("3_kk3ma")
+
+[node name="Sprite2D3" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -890.0
+offset_top = -340.0
+offset_right = 134.0
+offset_bottom = 6.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("4_nrnbx")
+
+[node name="Sprite2D4" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -890.0
+offset_top = -259.0
+offset_right = 134.0
+offset_bottom = 87.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("3_mae5d")
+
+[node name="Sprite2D5" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -890.0
+offset_top = -202.0
+offset_right = 134.0
+offset_bottom = 144.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("6_iqepy")
+
+[node name="logo" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
@@ -47,6 +143,34 @@ offset_right = 750.0
 offset_bottom = 500.0
 grow_horizontal = 2
 scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(750, 0)
 texture = ExtResource("2_ouk20")
 
-[connection signal="pressed" from="ColorRect/Button" to="." method="_on_button_pressed"]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -127.5
+offset_top = -50.0
+offset_right = 127.5
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_g7jxm")
+
+[node name="Button" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Play
+"
+
+[node name="Button2" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Exit"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_button_2_pressed"]

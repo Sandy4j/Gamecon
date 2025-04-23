@@ -1,12 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://8lc1qi2l2hgt"]
+[gd_scene load_steps=11 format=3 uid="uid://8lc1qi2l2hgt"]
 
 [ext_resource type="TileSet" uid="uid://byub34ml3s7ag" path="res://Environment/Tileset.tres" id="1_1bvp3"]
 [ext_resource type="Script" uid="uid://7hto2fde6nhy" path="res://Gameplay.gd" id="1_7mycd"]
 [ext_resource type="PackedScene" uid="uid://b7p0qqbgopi63" path="res://Actor/player.tscn" id="2_1bvp3"]
 [ext_resource type="Texture2D" uid="uid://cik1286n6a2km" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 5.png" id="2_5vw27"]
 [ext_resource type="Script" uid="uid://pg14fatwo7iu" path="res://stopwatch.gd" id="2_kek77"]
+[ext_resource type="Texture2D" uid="uid://b5vihvrrx1gd0" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 4.png" id="3_4c57u"]
 [ext_resource type="Texture2D" uid="uid://b50msifkit7n" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 2.png" id="3_kek77"]
 [ext_resource type="Texture2D" uid="uid://ctkgcd8j5vn73" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 1.png" id="4_4c57u"]
+[ext_resource type="Texture2D" uid="uid://gqduq12gso0f" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 3.png" id="4_efxa6"]
 [ext_resource type="Script" uid="uid://brhr15k4hwt78" path="res://Environment/tilemap.gd" id="8_5vw27"]
 
 [node name="Main" type="Node2D"]
@@ -126,39 +128,102 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 20
 text = "Restart"
 
-[node name="ParallaxBG" type="ParallaxBackground" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
-[node name="Sky" type="ParallaxLayer" parent="ParallaxBG"]
-position = Vector2(0, -217)
-motion_scale = Vector2(0, 0)
+[node name="Sky1" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(8, 405)
+motion_scale = Vector2(0.2, 1)
+motion_mirroring = Vector2(3850.2, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBG/Sky"]
-texture_filter = 1
-position = Vector2(0, -100)
-scale = Vector2(4, 4)
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Sky1"]
+scale = Vector2(1.88, 1.88)
 texture = ExtResource("2_5vw27")
-centered = false
 
-[node name="FarM" type="ParallaxLayer" parent="ParallaxBG"]
-position = Vector2(5, -426)
-motion_mirroring = Vector2(320, 0)
+[node name="Sky2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(8, 405)
+motion_scale = Vector2(0.2, 1)
+motion_offset = Vector2(1925.1, 0)
+motion_mirroring = Vector2(3850.2, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBG/FarM"]
-texture_filter = 1
-position = Vector2(0, -100)
-scale = Vector2(4, 4)
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Sky2"]
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("2_5vw27")
+
+[node name="Mountain1" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(8, 393)
+motion_scale = Vector2(0.5, 1)
+motion_mirroring = Vector2(3850.2, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Mountain1"]
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("3_4c57u")
+
+[node name="Mountain2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(8, 393)
+motion_scale = Vector2(0.5, 1)
+motion_offset = Vector2(1925.1, 0)
+motion_mirroring = Vector2(3850.2, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Mountain2"]
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("3_4c57u")
+
+[node name="Back_Tree1" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(8, 408)
+motion_scale = Vector2(0.8, 1)
+motion_mirroring = Vector2(3850.2, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Back_Tree1"]
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("4_efxa6")
+
+[node name="Back_Tree2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(8, 408)
+motion_scale = Vector2(0.8, 1)
+motion_offset = Vector2(1925.1, 0)
+motion_mirroring = Vector2(3850.2, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Back_Tree2"]
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("4_efxa6")
+
+[node name="Far_Tree1" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(8, 462)
+motion_scale = Vector2(1.2, 1)
+motion_mirroring = Vector2(3850.2, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Far_Tree1"]
+scale = Vector2(1.88, 1.88)
 texture = ExtResource("3_kek77")
-centered = false
 
-[node name="NearM" type="ParallaxLayer" parent="ParallaxBG"]
-position = Vector2(-2, -257)
-motion_mirroring = Vector2(320, 0)
+[node name="Far_Tree2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(8, 462)
+motion_scale = Vector2(1.2, 1)
+motion_offset = Vector2(1925.1, 0)
+motion_mirroring = Vector2(3850.2, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="ParallaxBG/NearM"]
-texture_filter = 1
-scale = Vector2(4, 4)
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Far_Tree2"]
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("3_kek77")
+
+[node name="Near_Tree1" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(8, 558)
+motion_scale = Vector2(2, 1)
+motion_mirroring = Vector2(3850.2, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Near_Tree1"]
+scale = Vector2(1.88, 1.88)
 texture = ExtResource("4_4c57u")
-centered = false
+
+[node name="Near_Tree2" type="ParallaxLayer" parent="ParallaxBackground"]
+position = Vector2(8, 558)
+motion_scale = Vector2(2, 1)
+motion_offset = Vector2(1925.1, 0)
+motion_mirroring = Vector2(3850.2, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="ParallaxBackground/Near_Tree2"]
+scale = Vector2(1.88, 1.88)
+texture = ExtResource("4_4c57u")
 
 [node name="Player" parent="." instance=ExtResource("2_1bvp3")]
 position = Vector2(0, 457)
