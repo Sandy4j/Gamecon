@@ -1,10 +1,11 @@
 extends Node2D
 
-@onready var health_bar = $Player/ProgressBar
+@onready var health_bar:TextureRect = $UI/Health
 @onready var tilemap = $TileMap
 @onready var stopwatch = $UI/Control
 @onready var player = $Player
 
+var hp_size:int
 var difficulty_increase_interval := 45.0
 var next_difficulty_time := 45.0
 var score := 0
@@ -13,13 +14,13 @@ var is_game_over := false
 
 
 func _ready() -> void:
+	hp_size = health_bar.size.x 
 	stopwatch.start_stopwatch()
 	tilemap.connect("enemy_defeated", _on_enemy_defeated)
 	player.connect("player_died", _on_player_died)
 	player.connect("health_changed", _on_player_health_changed)
-	health_bar.max_value = player.max_health
-	health_bar.value = player.health
-	
+	health_bar.size.x = player.health * hp_size
+
 func _process(delta: float) -> void:
 	var current_time = stopwatch.time_elapsed
 	if current_time >= next_difficulty_time:
@@ -27,7 +28,7 @@ func _process(delta: float) -> void:
 		next_difficulty_time += difficulty_increase_interval
 
 func _on_player_health_changed(new_health: int):
-	health_bar.value = new_health 
+	health_bar.size.x = hp_size * new_health
 
 func _on_enemy_defeated(points: int) -> void:
 	score += points

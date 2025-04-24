@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://77xiged1hwsx"]
+[gd_scene load_steps=13 format=3 uid="uid://77xiged1hwsx"]
 
 [ext_resource type="Script" uid="uid://cv6w2x6hlfk5x" path="res://menu.gd" id="1_lti8b"]
 [ext_resource type="Texture2D" uid="uid://cik1286n6a2km" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 5.png" id="2_ecwwl"]
@@ -7,42 +7,27 @@
 [ext_resource type="Texture2D" uid="uid://b50msifkit7n" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 2.png" id="3_mae5d"]
 [ext_resource type="Texture2D" uid="uid://gqduq12gso0f" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 3.png" id="4_nrnbx"]
 [ext_resource type="Texture2D" uid="uid://ctkgcd8j5vn73" path="res://Environment/GandalfHardcore FREE Platformer Assets/GandalfHardcore Background layers/Normal BG/GandalfHardcore Background layers_layer 1.png" id="6_iqepy"]
+[ext_resource type="FontFile" uid="uid://cbdt1t4huaaeb" path="res://Environment/pixelmplus-12.ttf" id="8_kk3ma"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1wq0"]
-bg_color = Color(0.267235, 0.554323, 0.853927, 1)
-border_width_bottom = 8
-border_color = Color(0.191308, 0.468276, 0.752943, 1)
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kk3ma"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ecwwl"]
-bg_color = Color(0.0941661, 0.2912, 0.487463, 1)
-border_color = Color(0.0924879, 0.287422, 0.481823, 1)
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nrnbx"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dwrpx"]
-bg_color = Color(0.184314, 0.458824, 0.737255, 1)
-border_width_bottom = 10
-border_color = Color(0.0518343, 0.195313, 0.337913, 1)
-border_blend = true
-corner_radius_top_left = 10
-corner_radius_top_right = 10
-corner_radius_bottom_right = 10
-corner_radius_bottom_left = 10
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iqepy"]
 
 [sub_resource type="Theme" id="Theme_g7jxm"]
-Button/styles/focus = SubResource("StyleBoxFlat_h1wq0")
-Button/styles/hover = SubResource("StyleBoxFlat_h1wq0")
-Button/styles/hover_pressed = SubResource("StyleBoxFlat_ecwwl")
-Button/styles/normal = SubResource("StyleBoxFlat_dwrpx")
-Button/styles/pressed = SubResource("StyleBoxFlat_ecwwl")
+Button/colors/font_color = Color(0.607843, 0.823529, 0.862745, 1)
+Button/colors/font_focus_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_color = Color(1, 1, 1, 1)
+Button/colors/font_hover_pressed_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/font_sizes/font_size = 29
+Button/fonts/font = ExtResource("8_kk3ma")
+Button/styles/focus = SubResource("StyleBoxEmpty_kk3ma")
+Button/styles/hover = SubResource("StyleBoxEmpty_nrnbx")
+Button/styles/hover_pressed = SubResource("StyleBoxEmpty_kk3ma")
+Button/styles/normal = SubResource("StyleBoxEmpty_iqepy")
+Button/styles/pressed = SubResource("StyleBoxEmpty_iqepy")
 
 [node name="Menu" type="Control"]
 layout_mode = 3
